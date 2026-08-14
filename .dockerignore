@@ -1,0 +1,15 @@
+.codex-next-dev.err.log
+.codex-next-dev.out.log
+.env
+.env.*
+!.env.example
+.git
+.github
+.next
+Dockerfile
+README.md
+coverage
+node_modules
+npm-debug.log*
+playwright-report
+test-results
