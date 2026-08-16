@@ -94,7 +94,31 @@ export default function MyReviewsPage() {
   }
 
   useEffect(() => {
-    void loadReviews();
+    let cancelled = false;
+
+    async function fetchReviews() {
+      try {
+        const response = await apiClient.get<MyReview[]>("/reviews/my");
+
+        if (!cancelled) {
+          setReviews(response.data);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setError(normalizeApiError(error).message);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    void fetchReviews();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function deleteReview(reviewId: string) {

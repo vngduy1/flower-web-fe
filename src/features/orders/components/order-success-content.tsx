@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { formatDate } from "@/lib/format/date";
 
 import { Alert, Button, EmptyState, Skeleton } from "@/components/ui";
 import { useAuth } from "@/features/auth/hooks/use-auth";
@@ -104,7 +105,7 @@ export function OrderSuccessContent() {
             </div>
             <div>
               <dt className="text-muted-foreground">配送日</dt>
-              <dd className="mt-1 font-semibold">{order.delivery.date}</dd>
+              <dd className="mt-1 font-semibold">{formatDate(order.delivery.date)}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">配送時間帯</dt>
@@ -172,7 +173,11 @@ export function OrderSuccessContent() {
             </div>
             <div className="flex justify-between gap-4">
               <dt className="text-white/65">割引</dt>
-              <dd>−{formatYen(order.discountAmount)}</dd>
+              <dd>
+                {order.discountAmount > 0
+                  ? `−${formatYen(order.discountAmount)}`
+                  : formatYen(0)}
+              </dd>
             </div>
             <div className="flex items-end justify-between gap-4 pt-2">
               <dt className="text-white/65">合計</dt>

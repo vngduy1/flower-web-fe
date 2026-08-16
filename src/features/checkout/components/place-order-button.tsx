@@ -42,37 +42,55 @@ export function PlaceOrderButton({
         isLoading={isPending}
         onClick={() => void requestConfirmation()}
       >
-        注文内容を確定する
+        注文内容を確認する
       </Button>
+
       <dialog
         ref={dialogRef}
-        className="bg-surface text-foreground m-auto w-[min(92vw,500px)] rounded-3xl border p-0 shadow-2xl backdrop:bg-black/40"
+        className="bg-surface text-foreground m-auto w-[min(92vw,500px)] border border-brand/10 p-0 shadow-2xl backdrop:bg-black/40"
         aria-labelledby="place-order-title"
         onCancel={(event) => {
-          if (isPending) event.preventDefault();
+          if (isPending) {
+            event.preventDefault();
+          }
         }}
       >
         <div className="p-6 sm:p-8">
-          <p className="text-accent text-xs font-bold tracking-[0.16em] uppercase">
+          <p className="home-eyebrow">
             Final confirmation
           </p>
-          <h2 id="place-order-title" className="text-brand-dark mt-3 font-serif text-2xl">
+
+          <div className="hanaori-rule mt-5" />
+
+          <h2
+            id="place-order-title"
+            className="text-brand-dark mt-6 font-serif text-2xl font-medium"
+          >
             この内容で注文しますか？
           </h2>
-          <p className="text-muted-foreground mt-4 text-sm leading-7">
-            配送先、配送日時、ご注文内容にお間違いがないか、 最後にご確認ください。
+
+          <p className="text-muted-foreground mt-4 text-sm leading-8">
+            お届け先、お届け日時、ご注文内容にお間違いがないか、
+            最後にご確認ください。
           </p>
-          <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-            <Button
-              variant="secondary"
-              disabled={isPending}
-              onClick={() => dialogRef.current?.close()}
-            >
-              内容を確認する
-            </Button>
-            <Button isLoading={isPending} onClick={() => void confirmOrder()}>
-              注文を確定
-            </Button>
+
+          <div className="border-brand/10 mt-7 border-t pt-6">
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+              <Button
+                variant="secondary"
+                disabled={isPending}
+                onClick={() => dialogRef.current?.close()}
+              >
+                戻って確認する
+              </Button>
+
+              <Button
+                isLoading={isPending}
+                onClick={() => void confirmOrder()}
+              >
+                注文を確定する
+              </Button>
+            </div>
           </div>
         </div>
       </dialog>

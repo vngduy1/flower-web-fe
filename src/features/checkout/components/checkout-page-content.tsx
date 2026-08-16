@@ -224,13 +224,13 @@ export function CheckoutPageContent() {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-      <div className="grid gap-6">
+    <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-16">
+      <div className="grid gap-10">
         {(hasUnavailableItems || hasPriceChanges) && (
           <Alert variant="warning" title="カート内容の確認が必要です">
             {hasUnavailableItems
               ? "購入できない商品があります。カートへ戻って内容を更新してください。"
-              : "商品価格が変更されています。OrdersServiceは価格変更がある注文を受け付けません。"}
+              : "商品価格が変更されています。カートに戻って最新の価格をご確認ください。"}
           </Alert>
         )}
 
@@ -311,7 +311,7 @@ export function CheckoutPageContent() {
         ) : null}
       </div>
 
-      <aside className="grid gap-6 lg:sticky lg:top-6">
+      <aside className="grid gap-6 lg:sticky lg:top-32">
         <CheckoutCartSummary cart={cart} />
         <CheckoutTotals
           subtotal={cart.totalPrice}
@@ -325,8 +325,8 @@ export function CheckoutPageContent() {
           onConfirm={placeOrder}
         />
         {!isReadyToOrder ? (
-          <p className="text-muted-foreground text-center text-xs leading-5">
-            配送先、配送日時、配送料、注文プレビューがすべて有効になると注文を確定できます。
+          <p className="text-muted-foreground text-center text-xs leading-6">
+            必要な項目をすべて入力すると、ご注文を確定できます。
           </p>
         ) : null}
       </aside>

@@ -14,7 +14,13 @@ import {
   useUploadProductImage,
 } from "../hooks/use-admin-products";
 
-function ImageCard({ image, productId }: { image: ProductImage; productId: string }) {
+function ImageCard({
+  image,
+  productId,
+}: {
+  image: ProductImage;
+  productId: string;
+}) {
   const update = useUpdateProductImage(productId);
   const remove = useDeleteProductImage(productId);
 
@@ -62,7 +68,7 @@ function ImageCard({ image, productId }: { image: ProductImage; productId: strin
           label="代替テキスト"
           value={altText}
           maxLength={255}
-          onChange={(e) => setAltText(e.target.value)}
+          onChange={(event) => setAltText(event.target.value)}
         />
 
         <Input
@@ -72,7 +78,7 @@ function ImageCard({ image, productId }: { image: ProductImage; productId: strin
           min="0"
           max="9999"
           value={sortOrder}
-          onChange={(e) => setSortOrder(Number(e.target.value))}
+          onChange={(event) => setSortOrder(Number(event.target.value))}
         />
 
         <div className="flex gap-2">
@@ -107,14 +113,20 @@ function ImageCard({ image, productId }: { image: ProductImage; productId: strin
         </div>
 
         {error ? (
-          <p className="text-sm text-red-700">{normalizeApiError(error).message}</p>
+          <p className="text-sm text-red-700">
+            {normalizeApiError(error).message}
+          </p>
         ) : null}
       </div>
     </article>
   );
 }
 
-export function ProductImageManager({ productId }: { productId: string }) {
+export function ProductImageManager({
+  productId,
+}: {
+  productId: string;
+}) {
   const images = useAdminProductImages(productId);
   const upload = useUploadProductImage(productId);
 
@@ -127,15 +139,29 @@ export function ProductImageManager({ productId }: { productId: string }) {
       return 0;
     }
 
-    return Math.max(...currentImages.map((image) => image.sortOrder ?? 0)) + 1;
+    return (
+      Math.max(
+        ...currentImages.map((image) => image.sortOrder ?? 0),
+      ) + 1
+    );
   }, [images.data]);
 
   const [files, setFiles] = useState<File[]>([]);
   const [altText, setAltText] = useState("");
-  const [sortOrder, setSortOrder] = useState(0);
+  const [sortOrderOverride, setSortOrderOverride] =
+    useState<number | null>(null);
   const [isPrimary, setIsPrimary] = useState(false);
   const [progress, setProgress] = useState(0);
   const [localError, setLocalError] = useState<string | null>(null);
+
+  /*
+   * Người dùng chưa tự thay đổi thứ tự:
+   * dùng nextSortOrder được tính từ danh sách ảnh.
+   *
+   * Sau khi người dùng nhập:
+   * dùng giá trị local.
+   */
+  const sortOrder = sortOrderOverride ?? nextSortOrder;
 
   const previews = useMemo(() => {
     return files.map((file) => ({
@@ -144,12 +170,10 @@ export function ProductImageManager({ productId }: { productId: string }) {
     }));
   }, [files]);
 
-  useEffect(() => {
-    if (files.length === 0) {
-      setSortOrder(nextSortOrder);
-    }
-  }, [nextSortOrder, files.length]);
-
+  /*
+   * Object URL là external browser resource,
+   * vì vậy cleanup bằng useEffect là phù hợp.
+   */
   useEffect(() => {
     return () => {
       previews.forEach((preview) => {
@@ -158,9 +182,10 @@ export function ProductImageManager({ productId }: { productId: string }) {
     };
   }, [previews]);
 
-  useEffect(() => {
+  function resetUploadForm() {
     setFiles([]);
     setAltText("");
+    setSortOrderOverride(null);
     setIsPrimary(false);
     setProgress(0);
     setLocalError(null);
@@ -168,7 +193,7 @@ export function ProductImageManager({ productId }: { productId: string }) {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  }, [productId]);
+  }
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -203,22 +228,15 @@ export function ProductImageManager({ productId }: { productId: string }) {
           isPrimary: index === 0 ? isPrimary : false,
           onProgress: (fileProgress) => {
             const completedProgress = index * 100;
-            const totalProgress = (completedProgress + fileProgress) / files.length;
+            const totalProgress =
+              (completedProgress + fileProgress) / files.length;
 
             setProgress(Math.round(totalProgress));
           },
         });
       }
 
-      setFiles([]);
-      setAltText("");
-      setIsPrimary(false);
-      setProgress(0);
-      setLocalError(null);
-
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+      resetUploadForm();
     } catch {
       return;
     }
@@ -226,7 +244,9 @@ export function ProductImageManager({ productId }: { productId: string }) {
 
   return (
     <section className="border-brand/10 rounded-2xl border bg-white p-5 shadow-sm sm:p-6">
-      <h2 className="text-brand-dark font-serif text-xl font-semibold">商品画像</h2>
+      <h2 className="text-brand-dark font-serif text-xl font-semibold">
+        商品画像
+      </h2>
 
       <p className="text-muted-foreground mt-2 text-sm">
         JPEG・PNG・WebP、1枚あたり最大10MB。複数の画像をまとめて選択できます。
@@ -244,11 +264,19 @@ export function ProductImageManager({ productId }: { productId: string }) {
             accept="image/jpeg,image/png,image/webp"
             multiple
             required
-            onChange={(e) => {
-              const selectedFiles = Array.from(e.target.files ?? []);
+            onChange={(event) => {
+              const selectedFiles = Array.from(
+                event.target.files ?? [],
+              );
 
               setFiles(selectedFiles);
               setLocalError(null);
+
+              /*
+               * Ảnh vừa được chọn sẽ bắt đầu từ thứ tự
+               * hiện tại của danh sách ảnh.
+               */
+              setSortOrderOverride(nextSortOrder);
             }}
             className="text-sm"
           />
@@ -277,7 +305,10 @@ export function ProductImageManager({ productId }: { productId: string }) {
                 />
 
                 <div className="p-2">
-                  <p className="truncate text-xs font-medium" title={preview.file.name}>
+                  <p
+                    className="truncate text-xs font-medium"
+                    title={preview.file.name}
+                  >
                     {preview.file.name}
                   </p>
 
@@ -286,7 +317,9 @@ export function ProductImageManager({ productId }: { productId: string }) {
                   </p>
 
                   {index === 0 && isPrimary ? (
-                    <p className="mt-1 text-xs font-semibold">メイン画像</p>
+                    <p className="mt-1 text-xs font-semibold">
+                      メイン画像
+                    </p>
                   ) : null}
                 </div>
               </div>
@@ -304,7 +337,9 @@ export function ProductImageManager({ productId }: { productId: string }) {
             label="代替テキスト"
             maxLength={255}
             value={altText}
-            onChange={(e) => setAltText(e.target.value)}
+            onChange={(event) =>
+              setAltText(event.target.value)
+            }
           />
 
           <p className="text-muted-foreground -mt-2 text-xs">
@@ -318,12 +353,15 @@ export function ProductImageManager({ productId }: { productId: string }) {
             min="0"
             max="9999"
             value={sortOrder}
-            onChange={(e) => setSortOrder(Number(e.target.value))}
+            onChange={(event) =>
+              setSortOrderOverride(Number(event.target.value))
+            }
           />
 
           {files.length > 1 ? (
             <p className="text-muted-foreground -mt-2 text-xs">
-              {files.length}枚の画像には、{sortOrder}～{sortOrder + files.length - 1}
+              {files.length}枚の画像には、{sortOrder}～
+              {sortOrder + files.length - 1}
               の順番が自動的に設定されます。
             </p>
           ) : null}
@@ -332,47 +370,74 @@ export function ProductImageManager({ productId }: { productId: string }) {
             <input
               type="checkbox"
               checked={isPrimary}
-              onChange={(e) => setIsPrimary(e.target.checked)}
+              onChange={(event) =>
+                setIsPrimary(event.target.checked)
+              }
             />
             先頭の画像をメイン画像にする
           </label>
 
           {upload.isPending ? (
             <div>
-              <progress className="w-full" max="100" value={progress} />
+              <progress
+                className="w-full"
+                max="100"
+                value={progress}
+              />
 
-              <p className="text-muted-foreground text-xs">アップロード中 {progress}%</p>
+              <p className="text-muted-foreground text-xs">
+                アップロード中 {progress}%
+              </p>
             </div>
           ) : null}
 
-          {localError ? <Alert variant="error">{localError}</Alert> : null}
+          {localError ? (
+            <Alert variant="error">
+              {localError}
+            </Alert>
+          ) : null}
 
           <Button
             type="submit"
             isLoading={upload.isPending}
             disabled={files.length === 0}
           >
-            {files.length > 1 ? `${files.length}枚をアップロード` : "アップロード"}
+            {files.length > 1
+              ? `${files.length}枚をアップロード`
+              : "アップロード"}
           </Button>
 
           {upload.error ? (
-            <Alert variant="error">{normalizeApiError(upload.error).message}</Alert>
+            <Alert variant="error">
+              {normalizeApiError(upload.error).message}
+            </Alert>
           ) : null}
         </div>
       </form>
 
       {images.isPending ? (
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 3 }, (_, i) => (
-            <Skeleton key={i} className="h-80 rounded-2xl" />
+          {Array.from({ length: 3 }, (_, index) => (
+            <Skeleton
+              key={index}
+              className="h-80 rounded-2xl"
+            />
           ))}
         </div>
       ) : null}
 
       {images.error ? (
-        <Alert className="mt-5" variant="error">
+        <Alert
+          className="mt-5"
+          variant="error"
+        >
           画像一覧を読み込めませんでした。
-          <Button size="sm" className="mt-3" onClick={() => void images.refetch()}>
+
+          <Button
+            size="sm"
+            className="mt-3"
+            onClick={() => void images.refetch()}
+          >
             再試行
           </Button>
         </Alert>
@@ -387,7 +452,11 @@ export function ProductImageManager({ productId }: { productId: string }) {
       {images.data?.length ? (
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {images.data.map((image) => (
-            <ImageCard key={image.id} image={image} productId={productId} />
+            <ImageCard
+              key={image.id}
+              image={image}
+              productId={productId}
+            />
           ))}
         </div>
       ) : null}

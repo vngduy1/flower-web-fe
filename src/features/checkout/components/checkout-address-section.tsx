@@ -17,27 +17,28 @@ export function CheckoutAddressSection({
   selectedAddressId,
 }: CheckoutAddressSectionProps) {
   return (
-    <section className="bg-surface rounded-3xl border p-5 shadow-sm sm:p-7">
+    <section className="border-brand/15 border-t pt-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-accent text-xs font-bold tracking-[0.15em] uppercase">
-            Step 1
-          </p>
-          <h2 className="text-brand-dark mt-2 font-serif text-2xl font-semibold">
-            配送先
+          <p className="home-eyebrow">Step 01</p>
+          <h2 className="text-brand-dark mt-4 font-serif text-2xl font-medium">
+            お届け先
           </h2>
         </div>
+
         <Link
           href="/account/addresses?returnTo=/checkout"
-          className="border-brand/25 text-brand-dark hover:bg-brand-soft/45 inline-flex min-h-10 items-center rounded-full border px-4 text-sm font-semibold"
+          className="group text-brand-dark inline-flex items-center gap-2 text-sm font-semibold"
         >
           住所を追加・編集
+          <span className="transition-transform group-hover:translate-x-1">→</span>
         </Link>
       </div>
 
       {addresses.length ? (
-        <fieldset className="mt-6 grid gap-3">
+        <fieldset className="mt-7 grid gap-0">
           <legend className="sr-only">配送先を選択</legend>
+
           {addresses.map((address) => {
             const isSelected = address.id === selectedAddressId;
 
@@ -45,13 +46,11 @@ export function CheckoutAddressSection({
               <label
                 key={address.id}
                 className={cn(
-                  "focus-within:ring-brand cursor-pointer rounded-2xl border p-4 transition-colors focus-within:ring-2",
-                  isSelected
-                    ? "border-brand bg-brand-soft/45"
-                    : "hover:border-brand/35 bg-white",
+                  "border-brand/10 cursor-pointer border-b py-5 transition-colors focus-within:outline-none",
+                  isSelected ? "bg-brand-soft/30" : "hover:bg-brand-soft/15",
                 )}
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-4 px-3">
                   <input
                     type="radio"
                     name="checkout-address"
@@ -60,21 +59,25 @@ export function CheckoutAddressSection({
                     onChange={() => onSelect(address.id)}
                     className="accent-brand mt-1 size-4"
                   />
-                  <span className="min-w-0 text-sm leading-6">
-                    <span className="flex flex-wrap items-center gap-2 font-semibold">
+
+                  <span className="min-w-0 text-sm leading-7">
+                    <span className="text-brand-dark flex flex-wrap items-center gap-2 font-semibold">
                       {address.label ?? address.recipientName}
+
                       {address.isDefault ? (
-                        <span className="bg-brand-soft text-brand-dark rounded-full px-2 py-0.5 text-[10px]">
+                        <span className="text-brand text-[10px] font-semibold tracking-[0.08em]">
                           標準
                         </span>
                       ) : null}
                     </span>
+
                     <span className="text-muted-foreground mt-1 block">
                       〒{address.postalCode} {address.prefecture}
                       {address.city}
                       {address.addressLine1}
                       {address.addressLine2 ? ` ${address.addressLine2}` : ""}
                     </span>
+
                     <span className="text-muted-foreground block">
                       {address.recipientName} / {address.recipientPhone}
                     </span>
@@ -85,9 +88,9 @@ export function CheckoutAddressSection({
           })}
         </fieldset>
       ) : (
-        <div className="mt-6 rounded-2xl border border-dashed p-5 text-sm">
-          <p className="font-semibold">配送先がありません</p>
-          <p className="text-muted-foreground mt-2 leading-6">
+        <div className="border-brand/10 mt-7 border-y py-8">
+          <p className="text-brand-dark font-semibold">配送先がありません</p>
+          <p className="text-muted-foreground mt-2 text-sm leading-7">
             注文を続けるには配送先を登録してください。
           </p>
         </div>

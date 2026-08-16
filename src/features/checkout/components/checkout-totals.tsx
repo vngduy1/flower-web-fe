@@ -17,33 +17,61 @@ export function CheckoutTotals({
       : Math.max(subtotal + deliveryFee - discountAmount, 0);
 
   return (
-    <section className="bg-brand-dark rounded-3xl p-6 text-white shadow-xl sm:p-7">
-      <p className="text-xs font-bold tracking-[0.16em] text-white/70 uppercase">
-        Expected total
+    <section className="bg-brand-dark px-6 py-8 text-white sm:px-7">
+      <p className="text-[10px] font-bold tracking-[0.2em] text-white/55 uppercase">
+        Order total
       </p>
-      <h2 className="mt-3 font-serif text-2xl">お支払い予定額</h2>
-      <dl className="mt-6 grid gap-4 border-y border-white/10 py-5 text-sm">
-        <div className="flex justify-between gap-4">
-          <dt className="text-white/65">商品小計</dt>
-          <dd>{formatYen(subtotal)}</dd>
+
+      <div className="mt-5 h-px w-10 bg-white/25" />
+
+      <h2 className="mt-6 font-serif text-2xl font-medium">
+        お支払い予定額
+      </h2>
+
+      <dl className="mt-7 border-y border-white/15">
+        <div className="flex items-center justify-between gap-4 border-b border-white/10 py-4">
+          <dt className="text-xs text-white/55">商品小計</dt>
+          <dd className="text-sm font-medium">
+            {formatYen(subtotal)}
+          </dd>
         </div>
-        <div className="flex justify-between gap-4">
-          <dt className="text-white/65">配送料</dt>
-          <dd>{deliveryFee === undefined ? "未確定" : formatYen(deliveryFee)}</dd>
+
+        <div className="flex items-center justify-between gap-4 border-b border-white/10 py-4">
+          <dt className="text-xs text-white/55">配送料</dt>
+          <dd className="text-sm font-medium">
+            {deliveryFee === undefined
+              ? "未確定"
+              : formatYen(deliveryFee)}
+          </dd>
         </div>
-        <div className="flex justify-between gap-4">
-          <dt className="text-white/65">クーポン割引</dt>
-          <dd>{discountAmount ? `−${formatYen(discountAmount)}` : formatYen(0)}</dd>
+
+        <div className="flex items-center justify-between gap-4 border-b border-white/10 py-4">
+          <dt className="text-xs text-white/55">
+            クーポン割引
+          </dt>
+
+          <dd className="text-sm font-medium">
+            {discountAmount
+              ? `−${formatYen(discountAmount)}`
+              : formatYen(0)}
+          </dd>
         </div>
-        <div className="flex items-end justify-between gap-4 pt-2">
-          <dt className="text-white/65">予定合計</dt>
-          <dd className="font-serif text-2xl font-semibold">
-            {expectedTotal === null ? "—" : formatYen(expectedTotal)}
+
+        <div className="flex items-end justify-between gap-4 py-5">
+          <dt className="text-xs text-white/55">
+            予定合計
+          </dt>
+
+          <dd className="font-serif text-3xl font-medium">
+            {expectedTotal === null
+              ? "—"
+              : formatYen(expectedTotal)}
           </dd>
         </div>
       </dl>
-      <p className="mt-4 text-xs leading-6 text-white/70">
-        配送料・クーポン・在庫・配送枠は注文作成トランザクションで再検証され、返された注文金額が最終確定額です。
+
+      <p className="mt-5 text-[11px] leading-6 text-white/55">
+        ご注文確定時に、在庫・配送料・クーポン・配送枠をあらためて確認します。
       </p>
     </section>
   );
