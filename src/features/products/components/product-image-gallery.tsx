@@ -14,17 +14,24 @@ interface ProductImageGalleryProps {
   slug: string;
 }
 
-export function ProductImageGallery({ productName, slug }: ProductImageGalleryProps) {
+export function ProductImageGallery({
+  productName,
+  slug,
+}: ProductImageGalleryProps) {
   const productQuery = useProduct(slug);
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
 
   if (productQuery.isPending) {
     return (
       <div className="grid gap-4">
-        <Skeleton className="aspect-square w-full rounded-[2rem]" />
-        <div className="grid grid-cols-4 gap-3">
-          {Array.from({ length: 4 }, (_, index) => (
-            <Skeleton key={index} className="aspect-square rounded-2xl" />
+        <Skeleton className="aspect-square w-full rounded-lg" />
+
+        <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
+          {Array.from({ length: 5 }, (_, index) => (
+            <Skeleton
+              key={index}
+              className="aspect-square rounded-md"
+            />
           ))}
         </div>
       </div>
@@ -39,7 +46,11 @@ export function ProductImageGallery({ productName, slug }: ProductImageGalleryPr
         <Alert variant="error" title="商品画像を読み込めませんでした">
           {error.message}
         </Alert>
-        <Button className="mt-5" onClick={() => void productQuery.refetch()}>
+
+        <Button
+          className="mt-5"
+          onClick={() => void productQuery.refetch()}
+        >
           もう一度試す
         </Button>
       </div>
@@ -47,24 +58,48 @@ export function ProductImageGallery({ productName, slug }: ProductImageGalleryPr
   }
 
   const images = productQuery.data.images;
-  const defaultImage = images.find((image) => image.isPrimary) ?? images[0] ?? null;
+
+  const defaultImage =
+    images.find((image) => image.isPrimary) ??
+    images[0] ??
+    null;
+
   const selectedImage =
-    images.find((image) => image.id === selectedImageId) ?? defaultImage;
+    images.find((image) => image.id === selectedImageId) ??
+    defaultImage;
 
   return (
-    <div>
-      <div className="bg-surface relative aspect-square overflow-hidden rounded-[2rem] border shadow-[0_30px_80px_-50px_rgba(38,61,45,0.65)]">
+    <div className="min-w-0">
+      {/* Main image */}
+      <div className="relative aspect-square overflow-hidden rounded-lg border border-brand/10 bg-surface">
         <CatalogImage
           key={selectedImage?.id ?? "fallback"}
           src={selectedImage?.largeUrl ?? selectedImage?.imageUrl ?? null}
           alt={selectedImage?.altText || productName}
-          sizes="(min-width: 1024px) 50vw, 100vw"
+          sizes="(min-width: 1024px) 52vw, 100vw"
           priority
+          className="transition-opacity duration-300"
         />
+
+        {/* Image count */}
+        {images.length > 1 ? (
+          <div className="absolute right-3 bottom-3 bg-surface/90 px-2.5 py-1 text-[9px] tracking-[0.1em] text-brand-dark backdrop-blur-sm">
+            {Math.max(
+              images.findIndex((image) => image.id === selectedImage?.id) + 1,
+              1,
+            )}
+            {" / "}
+            {images.length}
+          </div>
+        ) : null}
       </div>
 
+      {/* Thumbnails */}
       {images.length > 1 ? (
-        <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-5" aria-label="商品画像">
+        <div
+          className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-5"
+          aria-label="商品画像"
+        >
           {images.map((image) => {
             const isSelected = image.id === selectedImage?.id;
 
@@ -74,15 +109,26 @@ export function ProductImageGallery({ productName, slug }: ProductImageGalleryPr
                 type="button"
                 onClick={() => setSelectedImageId(image.id)}
                 className={cn(
-                  "relative aspect-square overflow-hidden rounded-2xl border-2 transition-colors",
+                  "relative aspect-square overflow-hidden rounded-md border transition-all duration-200",
                   isSelected
-                    ? "border-brand"
-                    : "hover:border-brand/35 border-transparent",
+                    ? "border-brand ring-1 ring-brand/20"
+                    : "border-brand/10 hover:border-brand/40",
                 )}
                 aria-label={`${productName}の画像 ${image.sortOrder + 1}を表示`}
                 aria-pressed={isSelected}
               >
-                <CatalogImage src={image.thumbnailUrl} alt="" sizes="120px" />
+                <CatalogImage
+                  src={image.thumbnailUrl}
+                  alt=""
+                  sizes="120px"
+                />
+
+                {isSelected ? (
+                  <span
+                    className="absolute inset-x-0 bottom-0 h-0.5 bg-brand"
+                    aria-hidden="true"
+                  />
+                ) : null}
               </button>
             );
           })}

@@ -57,88 +57,108 @@ export function ProductReviewsSection({ productId }: { productId: string }) {
   }, [myReviewsQuery.data, ordersQuery.data, productId]);
 
   return (
-    <section
-      className="border-brand/10 mt-16 border-t pt-12 sm:mt-20 sm:pt-16"
-      aria-labelledby="reviews-title"
-    >
+    <section aria-labelledby="reviews-title">
       <div className="mx-auto max-w-4xl">
-        <p className="text-accent text-xs font-bold tracking-[0.16em] uppercase">
-          Customer reviews
-        </p>
-        <h2
-          id="reviews-title"
-          className="text-brand-dark mt-2 font-serif text-3xl font-semibold sm:text-4xl"
-        >
-          お客様のレビュー
-        </h2>
+        {/* Heading */}
+        <header>
+          <p className="home-eyebrow">Customer reviews</p>
 
+          <div className="hanaori-rule mt-5" />
+
+          <h2
+            id="reviews-title"
+            className="text-brand-dark mt-7 font-serif text-3xl font-medium sm:text-4xl"
+          >
+            お客様のレビュー
+          </h2>
+        </header>
+
+        {/* Public reviews */}
         {publicReviewsQuery.isPending ? (
           <div
             aria-busy="true"
             aria-label="レビューを読み込み中"
-            className="mt-8 grid gap-5"
+            className="mt-10 grid gap-5"
             role="status"
           >
-            <Skeleton className="h-44 rounded-3xl" />
-            <Skeleton className="h-36 rounded-3xl" />
+            <Skeleton className="h-40 rounded-lg" />
+            <Skeleton className="h-28 rounded-lg" />
           </div>
         ) : publicReviewsQuery.error ? (
-          <div className="mt-8">
+          <div className="mt-10">
             <Alert variant="error" title="レビューを読み込めませんでした">
               {normalizeApiError(publicReviewsQuery.error).message}
             </Alert>
+
             <Button className="mt-4" onClick={() => void publicReviewsQuery.refetch()}>
               再試行
             </Button>
           </div>
         ) : (
-          <div className="mt-8">
-            <ReviewSummary summary={publicReviewsQuery.data} />
-            {publicReviewsQuery.data.items.length ? (
-              <div className="mt-6 rounded-3xl border bg-white px-6 sm:px-8">
-                {publicReviewsQuery.data.items.map((review) => (
-                  <ReviewCard key={review.id} review={review} />
-                ))}
-              </div>
+          <div className="mt-10">
+            {publicReviewsQuery.data.reviewCount > 0 ? (
+              <>
+                <ReviewSummary summary={publicReviewsQuery.data} />
+
+                <div className="mt-10">
+                  {publicReviewsQuery.data.items.map((review) => (
+                    <div
+                      key={review.id}
+                      className="border-brand/10 border-b py-8 first:pt-0"
+                    >
+                      <ReviewCard review={review} />
+                    </div>
+                  ))}
+                </div>
+              </>
             ) : (
-              <p className="text-muted-foreground mt-6 rounded-3xl border bg-white px-6 py-10 text-center text-sm">
-                公開済みのレビューはまだありません。
-              </p>
+              <div className="border-brand/10 border-y py-14 text-center sm:py-16">
+                <p className="text-brand-dark font-serif text-xl">
+                  まだレビューはありません。
+                </p>
+                <p className="text-muted-foreground mt-3 text-sm leading-7">
+                  この商品の最初のレビューをお待ちしています。
+                </p>
+              </div>
             )}
           </div>
         )}
 
-        <div className="bg-brand-soft/35 mt-10 rounded-3xl border p-6 sm:p-8">
-          <h3 className="text-brand-dark font-serif text-2xl font-semibold">
+        {/* Review submission */}
+        <section className="border-brand/15 mt-16 border-t pt-12">
+          <p className="home-eyebrow">Your review</p>
+
+          <h3 className="text-brand-dark mt-4 font-serif text-2xl font-medium">
             この商品へのレビュー
           </h3>
 
           {isAuthLoading ? (
-            <Skeleton className="mt-6 h-32 rounded-2xl" />
+            <Skeleton className="mt-7 h-28 rounded-lg" />
           ) : !user ? (
-            <div className="mt-5">
+            <div className="mt-7 max-w-xl">
               <p className="text-muted-foreground text-sm leading-7">
                 配達完了した購入商品のレビューを投稿するにはログインしてください。
               </p>
+
               <Link
                 href="/login"
-                className="bg-brand hover:bg-brand-dark mt-5 inline-flex min-h-11 items-center rounded-full px-5 text-sm font-semibold text-white transition-colors"
+                className="bg-brand-dark hover:bg-brand mt-6 inline-flex min-h-11 items-center px-6 text-sm font-semibold text-white transition-colors"
               >
                 ログイン
               </Link>
             </div>
           ) : ordersQuery.isPending || myReviewsQuery.isPending ? (
-            <Skeleton className="mt-6 h-44 rounded-2xl" />
+            <Skeleton className="mt-7 h-40 rounded-lg" />
           ) : ordersQuery.error || myReviewsQuery.error ? (
             <Alert
-              className="mt-5"
+              className="mt-7"
               variant="error"
               title="購入情報を確認できませんでした"
             >
               {normalizeApiError(ordersQuery.error ?? myReviewsQuery.error).message}
             </Alert>
           ) : (
-            <div className="mt-6 grid gap-6">
+            <div className="mt-8 grid gap-8">
               {submittedReview ? (
                 <Alert variant="success" title="レビューを受け付けました">
                   審査中として保存されました。承認されるまで公開レビューには表示されません。
@@ -146,19 +166,26 @@ export function ProductReviewsSection({ productId }: { productId: string }) {
               ) : null}
 
               {myProductReviews.length ? (
-                <div className="grid gap-4">
-                  <h4 className="text-sm font-semibold">あなたのレビュー状況</h4>
-                  {myProductReviews.map((review) => (
-                    <MyReviewStatusCard key={review.id} review={review} />
-                  ))}
+                <div>
+                  <h4 className="text-brand-dark text-sm font-semibold">
+                    あなたのレビュー状況
+                  </h4>
+
+                  <div className="mt-4 grid gap-4">
+                    {myProductReviews.map((review) => (
+                      <MyReviewStatusCard key={review.id} review={review} />
+                    ))}
+                  </div>
                 </div>
               ) : null}
 
               {reviewableItems.length ? (
-                <div className="border-brand/10 border-t pt-6">
-                  <p className="text-muted-foreground mb-5 text-sm leading-7">
-                    配達完了後、まだレビューを投稿していない商品が表示されます。投稿時にレビュー可能な商品かどうかを確認します。
+                <div className="border-brand/10 border-t pt-8">
+                  <p className="text-muted-foreground mb-6 max-w-2xl text-sm leading-7">
+                    配達完了後、まだレビューを投稿していない商品が表示されます。
+                    投稿時にレビュー可能な商品かどうかを確認します。
                   </p>
+
                   <ReviewForm items={reviewableItems} onSuccess={setSubmittedReview} />
                 </div>
               ) : (
@@ -168,7 +195,7 @@ export function ProductReviewsSection({ productId }: { productId: string }) {
               )}
             </div>
           )}
-        </div>
+        </section>
       </div>
     </section>
   );
