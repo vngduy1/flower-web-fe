@@ -30,3 +30,13 @@ export const getCategoryBySlugCached = cache(
     return category.isActive ? category : null;
   },
 );
+
+export const getStorefrontCategoriesCached = cache(async () => {
+  const response = await getCategories({
+    page: 1,
+    limit: 100,
+    hasActiveProducts: true,
+  });
+
+  return response.items.filter((category) => category.isActive);
+});

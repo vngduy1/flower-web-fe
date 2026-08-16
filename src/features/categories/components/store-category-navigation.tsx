@@ -1,6 +1,6 @@
 import { connection } from "next/server";
 
-import { getActiveCategoriesCached } from "../api/categories.server";
+import { getStorefrontCategoriesCached } from "../api/categories.server";
 import { CategoryNavigation } from "./category-navigation";
 import type { Category } from "../types/category";
 
@@ -9,7 +9,7 @@ export async function StoreCategoryNavigation() {
   let categories: Category[] = [];
 
   try {
-    categories = await getActiveCategoriesCached();
+    categories = await getStorefrontCategoriesCached();
   } catch {
     categories = [];
   }

@@ -75,35 +75,49 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   const images = products ? await getPrimaryProductImages(products.items) : {};
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+    <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-20">
+      {/* Breadcrumb */}
       <nav
-        className="text-muted-foreground mb-8 flex items-center gap-2 text-xs"
+        className="text-muted-foreground mb-10 flex items-center gap-2 text-[11px] tracking-[0.04em]"
         aria-label="パンくず"
       >
-        <Link href="/" className="hover:text-brand-dark">
+        <Link href="/" className="hover:text-brand-dark transition-colors">
           ホーム
         </Link>
-        <span aria-hidden="true">/</span>
-        <Link href="/products" className="hover:text-brand-dark">
+
+        <span className="text-brand-dark/25" aria-hidden="true">
+          /
+        </span>
+
+        <Link href="/products" className="hover:text-brand-dark transition-colors">
           商品一覧
         </Link>
-        <span aria-hidden="true">/</span>
-        <span className="text-foreground" aria-current="page">
+
+        <span className="text-brand-dark/25" aria-hidden="true">
+          /
+        </span>
+
+        <span className="text-brand-dark" aria-current="page">
           {category.name}
         </span>
       </nav>
 
-      <div className="mb-9 max-w-2xl">
-        <p className="text-accent text-xs font-bold tracking-[0.2em] uppercase">
-          Category
-        </p>
-        <h1 className="text-brand-dark mt-3 font-serif text-4xl sm:text-5xl">
-          {category.name}
-        </h1>
-        <p className="text-muted-foreground mt-4 text-sm leading-7 sm:text-base">
-          {category.name}カテゴリの商品を、新着順でご紹介します。
-        </p>
-      </div>
+      {/* Category intro */}
+      <header className="border-brand/15 mb-14 border-b pb-10 sm:mb-16 sm:pb-12">
+        <p className="home-eyebrow">Category</p>
+
+        <div className="hanaori-rule mt-5" />
+
+        <div className="mt-7 grid gap-6 lg:grid-cols-[1fr_0.75fr] lg:items-end">
+          <h1 className="text-brand-dark font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            {category.name}
+          </h1>
+
+          <p className="text-muted-foreground max-w-md text-sm leading-8 lg:justify-self-end">
+            {category.name}カテゴリの商品を、新着順でご紹介します。
+          </p>
+        </div>
+      </header>
 
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ProductCatalog fixedCategory={category} state={state} images={images} />

@@ -9,6 +9,14 @@ export interface CategoryRelationResponse {
   deletedAt: string | null;
 }
 
+export interface AdminCategoryQuery {
+  keyword?: string;
+  deletedOnly?: boolean;
+  hasActiveProducts?: boolean;
+  page?: number;
+  limit?: number;
+}
+
 export interface CategoryListResponse {
   items: CategoryResponse[];
   pagination: {

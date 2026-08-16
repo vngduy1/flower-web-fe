@@ -6,7 +6,10 @@ import { useState, type FormEvent } from "react";
 import { Button, Input } from "@/components/ui";
 import type { Category } from "@/features/categories/types/category";
 
-import { buildCatalogHref, type CatalogSearchState } from "../utils/catalog-search";
+import {
+  buildCatalogHref,
+  type CatalogSearchState,
+} from "../utils/catalog-search";
 
 interface ProductFiltersProps {
   categories: Category[];
@@ -29,38 +32,52 @@ export function ProductFilters({
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate({ ...state, keyword: keyword.trim(), page: 1 });
+
+    navigate({
+      ...state,
+      keyword: keyword.trim(),
+      page: 1,
+    });
   };
 
   return (
-    <div className="bg-surface rounded-3xl border p-5 shadow-sm sm:p-6">
+    <section
+      className="border-y border-brand/15 py-7 sm:py-8"
+      aria-label="商品絞り込み"
+    >
       <form
-        className="grid items-end gap-4 lg:grid-cols-[1fr_220px_180px_auto]"
+        className="grid items-end gap-5 lg:grid-cols-[1fr_210px_160px_auto]"
         onSubmit={handleSearch}
         role="search"
       >
-        <Input
-          id="catalog-keyword"
-          label="商品を検索"
-          placeholder="商品名・商品コード・スラッグ"
-          value={keyword}
-          onChange={(event) => setKeyword(event.target.value)}
-        />
+        {/* Keyword */}
+        <div>
+          <Input
+            id="catalog-keyword"
+            label="商品を検索"
+            placeholder="商品名・商品コード・スラッグ"
+            value={keyword}
+            onChange={(event) => setKeyword(event.target.value)}
+          />
+        </div>
 
+        {/* Category */}
         {fixedCategory ? (
           <div>
-            <span className="text-foreground mb-2 block text-sm font-semibold">
+            <span className="mb-2 block text-xs font-semibold tracking-[0.04em] text-foreground">
               カテゴリ
             </span>
-            <div className="border-brand/15 bg-brand-soft/35 flex min-h-11 items-center rounded-xl border px-3 text-sm">
+
+            <div className="flex min-h-11 items-center border-b border-brand/20 px-1 text-sm text-brand-dark">
               {fixedCategory.name}
             </div>
           </div>
         ) : (
           <label className="block">
-            <span className="text-foreground mb-2 block text-sm font-semibold">
+            <span className="mb-2 block text-xs font-semibold tracking-[0.04em] text-foreground">
               カテゴリ
             </span>
+
             <select
               value={state.category}
               onChange={(event) =>
@@ -70,9 +87,10 @@ export function ProductFilters({
                   page: 1,
                 })
               }
-              className="border-brand/20 bg-surface text-foreground focus:border-brand min-h-11 w-full rounded-xl border px-3 text-sm outline-none"
+              className="min-h-11 w-full border-b border-brand/20 bg-transparent px-1 text-sm text-foreground outline-none transition-colors focus:border-brand"
             >
               <option value="">すべてのカテゴリ</option>
+
               {categories.map((category) => (
                 <option key={category.id} value={category.slug}>
                   {category.name}
@@ -82,25 +100,43 @@ export function ProductFilters({
           </label>
         )}
 
+        {/* Sort */}
         <label className="block">
-          <span className="text-foreground mb-2 block text-sm font-semibold">並び順</span>
+          <span className="mb-2 block text-xs font-semibold tracking-[0.04em] text-foreground">
+            並び順
+          </span>
+
           <select
             value={state.sort}
-            onChange={() => navigate({ ...state, sort: "newest", page: 1 })}
-            className="border-brand/20 bg-surface text-foreground focus:border-brand min-h-11 w-full rounded-xl border px-3 text-sm outline-none"
+            onChange={() =>
+              navigate({
+                ...state,
+                sort: "newest",
+                page: 1,
+              })
+            }
+            className="min-h-11 w-full border-b border-brand/20 bg-transparent px-1 text-sm text-foreground outline-none transition-colors focus:border-brand"
             aria-describedby="catalog-sort-note"
           >
             <option value="newest">新着順</option>
           </select>
         </label>
 
-        <Button type="submit" className="w-full lg:w-auto">
+        {/* Search */}
+        <Button
+          type="submit"
+          className="min-h-11 w-full px-7 lg:w-auto"
+        >
           検索する
         </Button>
       </form>
-      <p id="catalog-sort-note" className="text-muted-foreground mt-3 text-xs">
+
+      <p
+        id="catalog-sort-note"
+        className="mt-4 text-[11px] leading-6 text-muted-foreground"
+      >
         現在の公開APIが提供する並び順は新着順です。
       </p>
-    </div>
+    </section>
   );
 }

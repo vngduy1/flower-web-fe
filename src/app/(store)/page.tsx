@@ -4,7 +4,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 
 import { Alert, EmptyState } from "@/components/ui";
-import { getActiveCategoriesCached } from "@/features/categories/api/categories.server";
+import { getStorefrontCategoriesCached } from "@/features/categories/api/categories.server";
 import { getProducts } from "@/features/products/api/products.api";
 import { getPrimaryProductImages } from "@/features/products/api/products.server";
 import { ProductGrid } from "@/features/products/components/product-grid";
@@ -77,7 +77,7 @@ function ProductSection({
 async function loadHomeCatalog() {
   try {
     const [categories, featuredProducts, newestProducts] = await Promise.all([
-      getActiveCategoriesCached(),
+      getStorefrontCategoriesCached(),
       getProducts({
         status: "ACTIVE",
         isFeatured: true,

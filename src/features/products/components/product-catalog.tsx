@@ -69,21 +69,26 @@ function ProductResults({ categoryId, images, state }: ProductResultsProps) {
 
   return (
     <div aria-busy={productsQuery.isFetching || undefined}>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-muted-foreground text-sm">
-          全 {productsQuery.data.pagination.total} 件中、
+      <div className="border-brand/10 mb-8 flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+        <p className="text-muted-foreground text-[11px] tracking-[0.06em]">
+          {productsQuery.data.pagination.total} products
+          <span className="text-brand-dark/20 mx-2">/</span>
           {(productsQuery.data.pagination.page - 1) *
             productsQuery.data.pagination.limit +
             1}
-          〜
+          –
           {Math.min(
             productsQuery.data.pagination.page * productsQuery.data.pagination.limit,
             productsQuery.data.pagination.total,
           )}
           件を表示
         </p>
+
         {productsQuery.isFetching ? (
-          <p className="text-accent text-xs font-semibold" role="status">
+          <p
+            className="text-accent text-[10px] font-semibold tracking-[0.08em]"
+            role="status"
+          >
             更新しています…
           </p>
         ) : null}
@@ -107,8 +112,11 @@ export function ProductCatalog({
 
   if (categoriesQuery.isPending) {
     return (
-      <div className="grid gap-8">
-        <div className="bg-surface h-36 animate-pulse rounded-3xl border" />
+      <div className="grid gap-10">
+        <div className="border-brand/10 border-y py-7">
+          <div className="bg-surface-muted h-4 w-40 animate-pulse rounded" />
+        </div>
+
         <ProductGridSkeleton />
       </div>
     );
@@ -148,13 +156,14 @@ export function ProductCatalog({
   }
 
   return (
-    <div className="grid gap-9">
+    <div className="grid gap-10">
       <ProductFilters
         key={`${state.keyword}:${state.category}:${state.sort}`}
         categories={categories}
         fixedCategory={fixedCategory}
         state={state}
       />
+
       <ProductResults categoryId={selectedCategory?.id} images={images} state={state} />
     </div>
   );
