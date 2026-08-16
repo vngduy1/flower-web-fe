@@ -22,7 +22,7 @@ export function DashboardRevenuePanel({ chart }: { chart: AdminDashboardRevenueC
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto pb-2" tabIndex={0} aria-label="売上推移グラフ">
-          <div className="flex h-56 min-w-[720px] items-end gap-2 border-b px-1 pt-5">
+          <div className="flex h-56 min-w-180 items-end gap-2 border-b px-1 pt-5">
             {chart.items.map((item, index) => {
               const height =
                 item.revenue > 0 && maximumRevenue > 0

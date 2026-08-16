@@ -281,7 +281,7 @@ export function AdminProductList() {
           </div>
           <div className="border-brand/10 mt-6 hidden overflow-hidden rounded-2xl border bg-white shadow-sm md:block">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[950px] text-left text-sm">
+              <table className="w-full min-w-237.5 text-left text-sm">
                 <thead className="bg-brand-soft/35 text-xs">
                   <tr>
                     <th className="p-4">商品</th>

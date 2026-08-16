@@ -27,7 +27,7 @@ export function StoreHeader() {
       </div>
 
       {/* Main header */}
-      <div className="mx-auto grid min-h-[88px] max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 lg:px-10">
+      <div className="mx-auto grid min-h-22 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 lg:px-10">
         {/* Logo */}
         <div className="justify-self-start">
           <Link

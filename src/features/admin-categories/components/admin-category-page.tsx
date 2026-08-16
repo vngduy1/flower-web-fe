@@ -244,7 +244,7 @@ export function AdminCategoryPage() {
             </div>
 
             <div className="border-brand/10 mt-6 hidden overflow-x-auto rounded-2xl border md:block">
-              <table className="w-full min-w-[900px] text-left text-sm">
+              <table className="w-full min-w-225 text-left text-sm">
                 <caption className="sr-only">カテゴリ一覧</caption>
                 <thead className="bg-brand-soft/35 text-muted-foreground text-xs">
                   <tr>

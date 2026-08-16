@@ -18,10 +18,10 @@ export function AdminDashboardSkeleton() {
         <Skeleton className="h-96 rounded-3xl" />
       </div>
       <div className="mt-6 grid gap-6 xl:grid-cols-2">
-        <Skeleton className="h-[480px] rounded-3xl" />
-        <Skeleton className="h-[480px] rounded-3xl" />
+        <Skeleton className="h-120 rounded-3xl" />
+        <Skeleton className="h-120 rounded-3xl" />
       </div>
-      <Skeleton className="mt-6 h-[520px] rounded-3xl" />
+      <Skeleton className="mt-6 h-130 rounded-3xl" />
     </div>
   );
 }

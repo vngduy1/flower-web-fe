@@ -21,8 +21,8 @@ export function OrderDetailContent({ orderId }: { orderId: string }) {
   if (orderQuery.isPending) {
     return (
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <Skeleton className="h-[680px] rounded-3xl" />
-        <Skeleton className="h-[420px] rounded-3xl" />
+        <Skeleton className="h-170 rounded-3xl" />
+        <Skeleton className="h-105 rounded-3xl" />
       </div>
     );
   }

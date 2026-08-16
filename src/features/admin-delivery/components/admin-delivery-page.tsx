@@ -7,7 +7,7 @@ import { DeliveryTimeSlotSection } from "./delivery-time-slot-section";
 
 export function AdminDeliveryPage() {
   return (
-    <div className="mx-auto max-w-[1500px]">
+    <div className="mx-auto max-w-375">
       <div>
         <p className="text-accent text-xs font-bold tracking-[.18em] uppercase">
           Delivery management

@@ -138,7 +138,7 @@ export function ProductDetail({
           <div className="hanaori-rule mt-5" />
 
           {/* Name */}
-          <h1 className="mt-7 font-serif text-4xl leading-[1.25] font-medium text-brand-dark sm:text-5xl lg:text-[3.4rem]">
+          <h1 className="mt-7 font-serif text-4xl leading-tight font-medium text-brand-dark sm:text-5xl lg:text-[3.4rem]">
             {product.name}
           </h1>
 

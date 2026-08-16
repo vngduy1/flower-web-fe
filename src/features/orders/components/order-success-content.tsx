@@ -45,7 +45,7 @@ export function OrderSuccessContent() {
         className="grid gap-6 lg:grid-cols-[1fr_360px]"
         aria-label="注文を読み込んでいます"
       >
-        <Skeleton className="h-[520px] rounded-3xl" />
+        <Skeleton className="h-130 rounded-3xl" />
         <Skeleton className="h-80 rounded-3xl" />
       </div>
     );

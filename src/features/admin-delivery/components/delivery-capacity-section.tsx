@@ -295,7 +295,7 @@ export function DeliveryCapacitySection() {
       ) : null}
       {query.data?.length ? (
         <div className="border-brand/10 mt-6 overflow-x-auto rounded-2xl border">
-          <table className="w-full min-w-[1250px] text-left text-sm">
+          <table className="w-full min-w-312.5 text-left text-sm">
             <caption className="sr-only">日別配送容量一覧</caption>
             <thead className="bg-brand-soft/35 text-muted-foreground text-xs">
               <tr>

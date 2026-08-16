@@ -57,7 +57,7 @@ export function AdminDashboardContent() {
   }
 
   return (
-    <div className="mx-auto max-w-[1500px]">
+    <div className="mx-auto max-w-375">
       <div className="mb-8">
         <p className="text-accent text-xs font-bold tracking-[0.18em] uppercase">
           Administration overview

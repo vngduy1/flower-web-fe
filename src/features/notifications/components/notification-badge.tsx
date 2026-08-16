@@ -105,7 +105,7 @@ export function NotificationBadge({ isAdmin = false }: { isAdmin?: boolean }) {
       </button>
 
       {open ? (
-        <div className="border-brand/10 absolute right-0 z-50 mt-3 w-[360px] overflow-hidden rounded-2xl border bg-white shadow-xl">
+        <div className="border-brand/10 absolute right-0 z-50 mt-3 w-90 overflow-hidden rounded-2xl border bg-white shadow-xl">
           <div className="border-brand/10 flex items-center justify-between border-b px-4 py-3">
             <p className="font-semibold">通知</p>
 
@@ -119,7 +119,7 @@ export function NotificationBadge({ isAdmin = false }: { isAdmin?: boolean }) {
               読み込み中...
             </div>
           ) : data?.items.length ? (
-            <div className="max-h-[420px] overflow-y-auto">
+            <div className="max-h-105 overflow-y-auto">
               {data.items.map((notification) => (
                 <div
                   key={notification.id}

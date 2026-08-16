@@ -14,7 +14,7 @@ export default function CheckoutSuccessPage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-10">
       <AuthGuard>
-        <Suspense fallback={<Skeleton className="h-[560px] rounded-3xl" />}>
+        <Suspense fallback={<Skeleton className="h-140 rounded-3xl" />}>
           <OrderSuccessContent />
         </Suspense>
       </AuthGuard>

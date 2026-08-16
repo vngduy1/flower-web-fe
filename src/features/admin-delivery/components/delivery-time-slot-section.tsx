@@ -212,7 +212,7 @@ export function DeliveryTimeSlotSection() {
       ) : null}
       {query.data?.length ? (
         <div className="border-brand/10 mt-6 overflow-x-auto rounded-2xl border">
-          <table className="w-full min-w-[1150px] text-left text-sm">
+          <table className="w-full min-w-287.5 text-left text-sm">
             <caption className="sr-only">配送時間帯一覧</caption>
             <thead className="bg-brand-soft/35 text-muted-foreground text-xs">
               <tr>

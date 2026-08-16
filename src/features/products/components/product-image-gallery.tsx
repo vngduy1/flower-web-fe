@@ -83,7 +83,7 @@ export function ProductImageGallery({
 
         {/* Image count */}
         {images.length > 1 ? (
-          <div className="absolute right-3 bottom-3 bg-surface/90 px-2.5 py-1 text-[9px] tracking-[0.1em] text-brand-dark backdrop-blur-sm">
+          <div className="absolute right-3 bottom-3 bg-surface/90 px-2.5 py-1 text-[9px] tracking-widest text-brand-dark backdrop-blur-sm">
             {Math.max(
               images.findIndex((image) => image.id === selectedImage?.id) + 1,
               1,

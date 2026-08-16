@@ -67,7 +67,7 @@ export function AdminOrderTable({ orders }: { orders: AdminOrderSummary[] }) {
       </div>
       <div className="border-brand/10 mt-6 hidden overflow-hidden rounded-2xl border bg-white shadow-sm lg:block">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[1200px] text-left text-sm">
+          <table className="w-full min-w-300 text-left text-sm">
             <thead className="bg-brand-soft/35 text-xs">
               <tr>
                 <th className="p-4">注文</th>

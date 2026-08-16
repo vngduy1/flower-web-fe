@@ -170,7 +170,7 @@ export default function GuidePage() {
       </section>
 
       <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="bg-brand-dark mx-auto max-w-7xl rounded-[2rem] px-6 py-10 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-14">
+        <div className="bg-brand-dark mx-auto max-w-7xl rounded-4xl px-6 py-10 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-14">
           <div>
             <p className="text-xs font-bold tracking-[0.18em] text-white/65 uppercase">
               Start shopping

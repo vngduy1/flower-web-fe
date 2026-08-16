@@ -119,7 +119,7 @@ export default function EditReviewPage() {
   if (isLoading) {
     return (
       <main className="mx-auto max-w-2xl px-5 py-12">
-        <Skeleton className="h-[620px] rounded-3xl" />
+        <Skeleton className="h-155 rounded-3xl" />
       </main>
     );
   }

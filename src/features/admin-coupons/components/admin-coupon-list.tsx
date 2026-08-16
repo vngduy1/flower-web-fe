@@ -40,7 +40,7 @@ export function AdminCouponList() {
   const pagination = coupons.data?.pagination;
 
   return (
-    <div className="mx-auto max-w-[1500px]">
+    <div className="mx-auto max-w-375">
       <div className="flex flex-wrap items-end justify-between gap-5">
         <div>
           <p className="text-accent text-xs font-bold tracking-[.18em] uppercase">

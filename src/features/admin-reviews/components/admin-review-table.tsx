@@ -100,7 +100,7 @@ export function AdminReviewTable({ reviews }: { reviews: AdminReview[] }) {
       </div>
 
       <div className="border-brand/10 mt-6 hidden overflow-x-auto rounded-2xl border bg-white shadow-sm lg:block">
-        <table className="w-full min-w-[1300px] text-left text-sm">
+        <table className="w-full min-w-325 text-left text-sm">
           <thead className="bg-brand-soft/35 text-muted-foreground text-xs">
             <tr>
               <th scope="col" className="px-4 py-3 font-semibold">

@@ -11,7 +11,7 @@ export function HeroSection() {
 
           <div className="hanaori-rule mt-5" />
 
-          <h1 className="mt-7 font-serif text-5xl leading-[1.25] font-medium tracking-[-0.035em] text-brand-dark sm:text-6xl lg:text-[4.6rem] lg:leading-[1.18]">
+          <h1 className="mt-7 font-serif text-5xl leading-tight font-medium tracking-[-0.035em] text-brand-dark sm:text-6xl lg:text-[4.6rem] lg:leading-[1.18]">
             暮らしに、
             <br />
             花の余白を。
@@ -59,7 +59,7 @@ export function HeroSection() {
 
         {/* Hero image */}
         <div className="relative">
-          <div className="relative ml-auto aspect-[4/5] w-full max-w-[620px] overflow-hidden bg-surface-muted">
+          <div className="relative ml-auto aspect-4/5 w-full max-w-155 overflow-hidden bg-surface-muted">
             <Image
               src="/images/home/hero.jpg"
               alt="季節の花を束ねた花織のブーケ"
@@ -71,7 +71,7 @@ export function HeroSection() {
 
             {/* subtle overlay chỉ để chữ/caption dễ hòa vào ảnh */}
             <div
-              className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"
+              className="absolute inset-0 bg-linear-to-t from-black/10 via-transparent to-transparent"
               aria-hidden="true"
             />
           </div>

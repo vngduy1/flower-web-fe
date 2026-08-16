@@ -8,7 +8,7 @@ export function SeasonalPromotion() {
     <div className="relative overflow-hidden bg-brand-dark">
       <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
         {/* Image */}
-        <div className="relative min-h-[320px] sm:min-h-[420px] lg:min-h-[520px]">
+        <div className="relative min-h-80 sm:min-h-105 lg:min-h-130">
           <Image
             src="/images/home/seasonal.jpg"
             alt="季節の花を束ねたアレンジメント"

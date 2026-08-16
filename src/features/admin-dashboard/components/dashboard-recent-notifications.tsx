@@ -48,7 +48,7 @@ export function DashboardRecentNotifications({
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>
-                      <p className="text-accent text-[10px] font-bold tracking-[0.1em] uppercase">
+                      <p className="text-accent text-[10px] font-bold tracking-widest uppercase">
                         {notificationLabels[notification.type]}
                       </p>
                       <h3 className="text-foreground mt-1 text-sm font-semibold">

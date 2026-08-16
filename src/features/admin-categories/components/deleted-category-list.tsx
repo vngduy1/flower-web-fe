@@ -178,7 +178,7 @@ export function DeletedCategoryList() {
 
             {/* Desktop */}
             <div className="border-brand/10 mt-6 hidden overflow-x-auto rounded-2xl border md:block">
-              <table className="w-full min-w-[850px] text-left text-sm">
+              <table className="w-full min-w-212.5 text-left text-sm">
                 <caption className="sr-only">削除済みカテゴリ一覧</caption>
 
                 <thead className="bg-brand-soft/35 text-muted-foreground text-xs">

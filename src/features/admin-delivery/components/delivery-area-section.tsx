@@ -187,7 +187,7 @@ export function DeliveryAreaSection() {
       ) : null}
       {query.data?.length ? (
         <div className="border-brand/10 mt-6 overflow-x-auto rounded-2xl border">
-          <table className="w-full min-w-[1050px] text-left text-sm">
+          <table className="w-full min-w-262.5 text-left text-sm">
             <caption className="sr-only">配送エリア一覧</caption>
             <thead className="bg-brand-soft/35 text-muted-foreground text-xs">
               <tr>

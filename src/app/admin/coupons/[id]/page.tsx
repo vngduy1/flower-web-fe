@@ -16,7 +16,7 @@ export default async function AdminCouponDetailPage({
   const { id } = await params;
 
   return (
-    <Suspense fallback={<Skeleton className="h-[720px] rounded-2xl" />}>
+    <Suspense fallback={<Skeleton className="h-180 rounded-2xl" />}>
       <AdminCouponDetail id={id} />
     </Suspense>
   );

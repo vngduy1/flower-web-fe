@@ -10,7 +10,7 @@ export function StorySection() {
         <div className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-20">
           {/* Editorial visual */}
           <div className="relative order-2 lg:order-1">
-            <div className="relative aspect-[4/5] overflow-hidden">
+            <div className="relative aspect-4/5 overflow-hidden">
   <Image
     src="/images/home/story.jpg"
     alt="花のある暮らしを楽しむ室内の風景"

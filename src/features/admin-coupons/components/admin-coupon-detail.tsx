@@ -27,7 +27,7 @@ export function AdminCouponDetail({ id }: { id: string }) {
     return (
       <div className="grid gap-5">
         <Skeleton className="h-28 rounded-2xl" />
-        <Skeleton className="h-[720px] rounded-2xl" />
+        <Skeleton className="h-180 rounded-2xl" />
       </div>
     );
   }
@@ -45,7 +45,7 @@ export function AdminCouponDetail({ id }: { id: string }) {
   const coupon = detail.data;
 
   return (
-    <div className="mx-auto max-w-[1400px]">
+    <div className="mx-auto max-w-350">
       <Link href="/admin/coupons" className="text-brand text-sm font-semibold">
         ← クーポン一覧
       </Link>

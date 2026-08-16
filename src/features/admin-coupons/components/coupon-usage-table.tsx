@@ -75,7 +75,7 @@ export function CouponUsageTable({ usages }: { usages: AdminCouponUsage[] }) {
       </div>
 
       <div className="border-brand/10 mt-5 hidden overflow-x-auto rounded-2xl border lg:block">
-        <table className="w-full min-w-[1000px] text-left text-sm">
+        <table className="w-full min-w-250 text-left text-sm">
           <thead className="bg-brand-soft/35 text-muted-foreground text-xs">
             <tr>
               <th className="px-4 py-3 font-semibold">利用ID</th>

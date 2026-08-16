@@ -78,7 +78,7 @@ export function GuideSection() {
                 {item.title}
               </h3>
 
-              <p className="mt-3 max-w-[250px] text-sm leading-7 text-muted-foreground">
+              <p className="mt-3 max-w-62.5 text-sm leading-7 text-muted-foreground">
                 {item.description}
               </p>
 

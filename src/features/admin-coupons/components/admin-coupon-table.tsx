@@ -90,7 +90,7 @@ export function AdminCouponTable({ coupons }: { coupons: AdminCoupon[] }) {
       </div>
 
       <div className="border-brand/10 mt-6 hidden overflow-x-auto rounded-2xl border bg-white shadow-sm xl:block">
-        <table className="w-full min-w-[1380px] text-left text-sm">
+        <table className="w-full min-w-345 text-left text-sm">
           <thead className="bg-brand-soft/35 text-muted-foreground text-xs">
             <tr>
               <th className="px-4 py-3 font-semibold">コード・名称</th>

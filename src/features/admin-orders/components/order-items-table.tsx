@@ -10,7 +10,7 @@ export function OrderItemsTable({ items }: { items: AdminOrderItem[] }) {
     <section className="border-brand/10 rounded-2xl border bg-white p-5 shadow-sm sm:p-6">
       <h2 className="font-serif text-xl font-semibold">注文商品</h2>
       <div className="mt-5 overflow-x-auto">
-        <table className="w-full min-w-[700px] text-left text-sm">
+        <table className="w-full min-w-175 text-left text-sm">
           <thead className="bg-brand-soft/30 text-xs">
             <tr>
               <th className="p-3">商品スナップショット</th>

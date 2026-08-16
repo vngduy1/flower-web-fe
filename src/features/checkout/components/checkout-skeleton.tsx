@@ -15,7 +15,7 @@ export function CheckoutSkeleton() {
           </div>
         ))}
       </div>
-      <Skeleton className="h-[460px] rounded-3xl" />
+      <Skeleton className="h-115 rounded-3xl" />
     </div>
   );
 }

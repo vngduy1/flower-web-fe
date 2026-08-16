@@ -16,7 +16,7 @@ export function OrderStatusHistory({
           {histories.map((history) => (
             <li
               key={history.id}
-              className="border-brand/15 before:bg-brand relative border-l-2 py-1 pl-5 before:absolute before:top-2 before:-left-[7px] before:size-3 before:rounded-full"
+              className="border-brand/15 before:bg-brand relative border-l-2 py-1 pl-5 before:absolute before:top-2 before:-left-1.75 before:size-3 before:rounded-full"
             >
               <p className="text-sm font-semibold">
                 {getOrderStatusLabel(history.fromStatus)} →{" "}

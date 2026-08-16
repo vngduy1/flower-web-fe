@@ -24,7 +24,7 @@ export function DashboardRecentOrders({
       <CardContent>
         {orders.length ? (
           <div className="overflow-x-auto rounded-2xl border bg-white">
-            <table className="w-full min-w-[820px] text-left text-sm">
+            <table className="w-full min-w-205 text-left text-sm">
               <thead className="bg-brand-soft/45 text-muted-foreground text-xs">
                 <tr>
                   <th className="px-4 py-3 font-semibold">注文</th>
