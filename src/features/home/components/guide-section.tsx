@@ -8,7 +8,7 @@ const GUIDE_ITEMS = [
   },
   {
     number: "02",
-    title: "お届け先・日時を指定",
+    title: "お届け先・日時",
     description: "配送先とご希望のお届け日時を入力します。",
   },
   {
@@ -27,50 +27,70 @@ export function GuideSection() {
   return (
     <section
       id="guide"
-      className="bg-surface scroll-mt-32 px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
+      className="scroll-mt-32 border-y border-brand/10 bg-surface px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-end justify-between gap-6">
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="text-accent text-xs font-bold tracking-[0.2em] uppercase">
-              Shopping guide
-            </p>
+            <p className="home-eyebrow">Shopping guide</p>
 
-            <h2 className="text-brand-dark mt-3 font-serif text-4xl sm:text-5xl">
+            <div className="hanaori-rule mt-5" />
+
+            <h2 className="mt-7 font-serif text-4xl text-brand-dark sm:text-5xl">
               ご利用ガイド
             </h2>
 
-            <p className="text-muted-foreground mt-5 max-w-2xl leading-8">
+            <p className="mt-5 max-w-xl text-sm leading-8 text-muted-foreground">
               商品を選んでからお届けするまでの流れをご案内します。
             </p>
           </div>
 
           <Link
             href="/guide"
-            className="text-brand-dark text-sm font-semibold underline-offset-4 hover:underline"
+            className="group inline-flex items-center gap-3 text-sm font-semibold text-brand-dark"
           >
-            ご利用ガイドを詳しく見る →
+            ご利用ガイドを詳しく見る
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              →
+            </span>
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {GUIDE_ITEMS.map((item) => (
-            <article
-              key={item.number}
-              className="border-brand/10 rounded-3xl border bg-white p-6"
-            >
-              <p className="text-accent text-xs font-bold">{item.number}</p>
+        <ol className="relative mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+          <div
+            className="absolute top-5 right-[12.5%] left-[12.5%] hidden h-px bg-brand/15 lg:block"
+            aria-hidden="true"
+          />
 
-              <h3 className="text-brand-dark mt-6 font-serif text-xl font-semibold">
+          {GUIDE_ITEMS.map((item, index) => (
+            <li
+              key={item.number}
+              className="relative lg:px-6 first:lg:pl-0 last:lg:pr-0"
+            >
+              <div className="relative z-10 flex size-10 items-center justify-center rounded-full border border-brand/20 bg-surface font-serif text-xs text-brand-dark">
+                {item.number}
+              </div>
+
+              <h3 className="mt-7 font-serif text-xl text-brand-dark">
                 {item.title}
               </h3>
 
-              <p className="text-muted-foreground mt-3 text-sm leading-7">
+              <p className="mt-3 max-w-[250px] text-sm leading-7 text-muted-foreground">
                 {item.description}
               </p>
-            </article>
+
+              {index < GUIDE_ITEMS.length - 1 && (
+                <span
+                  className="mt-7 block h-px w-12 bg-brand/15 lg:hidden"
+                  aria-hidden="true"
+                />
+              )}
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
