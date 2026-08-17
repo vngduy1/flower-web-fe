@@ -53,3 +53,24 @@ export interface AuthenticatedUser {
   roleCode: RoleCode;
   roleName: string;
 }
+
+export interface VerifyEmailRequest {
+  email: string;
+  code: string;
+}
+
+export interface VerifyEmailResponse {
+  message: string;
+  email: string;
+  emailVerified: boolean;
+}
+
+export interface ResendVerificationRequest {
+  email: string;
+}
+
+export interface ResendVerificationResponse {
+  message: string;
+  email: string;
+  verificationEmailSent: boolean;
+}

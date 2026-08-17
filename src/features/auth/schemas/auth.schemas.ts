@@ -39,5 +39,14 @@ export const registerSchema = z
     path: ["passwordConfirmation"],
   });
 
+export const verifyEmailSchema = z.object({
+  code: z
+    .string()
+    .trim()
+    .regex(/^\d{6}$/, "確認コードは6桁の数字で入力してください"),
+});
+
+export type VerifyEmailFormValues = z.infer<typeof verifyEmailSchema>;
+
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export type RegisterFormValues = z.infer<typeof registerSchema>;

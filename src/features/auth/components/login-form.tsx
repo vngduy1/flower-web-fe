@@ -14,14 +14,14 @@ import { getSafeReturnTo } from "../utils/auth-routing";
 
 interface LoginFormProps {
   defaultEmail?: string;
-  registered?: boolean;
+  verified?: boolean;
   returnTo?: string;
   sessionExpired?: boolean;
 }
 
 export function LoginForm({
   defaultEmail = "",
-  registered,
+  verified,
   returnTo,
   sessionExpired,
 }: LoginFormProps) {
@@ -64,9 +64,9 @@ export function LoginForm({
         </p>
       </div>
 
-      {registered ? (
-        <Alert className="mb-6" variant="success" title="会員登録が完了しました">
-          続けてログインしてください。
+      {verified ? (
+        <Alert className="mb-6" variant="success" title="メールアドレスを確認しました">
+          ログインしてお買い物をお楽しみください。
         </Alert>
       ) : null}
 

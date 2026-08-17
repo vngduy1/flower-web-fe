@@ -13,7 +13,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   return (
     <LoginForm
       defaultEmail={firstSearchParam(params.email)}
-      registered={firstSearchParam(params.registered) === "1"}
+      verified={firstSearchParam(params.verified) === "1"}
       returnTo={firstSearchParam(params.returnTo)}
       sessionExpired={firstSearchParam(params.reason) === "session-expired"}
     />

@@ -36,12 +36,12 @@ export function RegisterForm() {
   const onSubmit = handleSubmit(async (values) => {
     try {
       const registeredUser = await registerMutation.mutateAsync(values);
+
       const query = new URLSearchParams({
-        registered: "1",
         email: registeredUser.email,
       });
 
-      router.push(`/login?${query.toString()}`);
+      router.push(`/verify-email?${query.toString()}`);
     } catch {
       // The normalized registration error remains visible above the form.
     }
